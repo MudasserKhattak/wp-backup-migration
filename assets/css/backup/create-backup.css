@@ -1,0 +1,74 @@
+.backup-popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.backup-popup {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    max-width: 24rem;
+}
+
+.backup-popup h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.backup-popup .option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.backup-popup .option input {
+    margin-right: 0.5rem;
+}
+
+.backup-popup .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+.backup-popup .actions button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.backup-popup .actions button.create {
+    background-color: #4299e1;
+    color: white;
+}
+
+.backup-popup .actions button.create:hover {
+    background-color: #2b6cb0;
+}
+
+.backup-popup .actions button.cancel {
+    background-color: #e2e8f0;
+    color: #4a5568;
+}
+
+.backup-popup .actions button.cancel:hover {
+    background-color: #cbd5e0;
+}
+
+@media (max-width: 640px) {
+    .backup-popup {
+        padding: 1rem;
+    }
+}

@@ -3,27 +3,24 @@
 
 <div class="features">
     <div class="feature-card">
-        <div class="feature-icon">
-            <i class="fas fa-cloud-download-alt"></i>
-        </div>
-        <div class="feature-title">Migrate Site</div>
-        <div class="feature-description">Easily transfer your WordPress site to a new hosting provider or location.</div>
-        <button class="feature-button">Migrate Site</button>
-    </div>
-    <div class="feature-card">
-        <div class="feature-icon">
-            <i class="fas fa-cog"></i>
-        </div>
-        <div class="feature-title">Settings</div>
-        <div class="feature-description">Configure backup schedules, storage locations, and other options.</div>
-        <button class="feature-button">Open Settings</button>
-    </div>
-    <div class="feature-card">
-        <div class="feature-icon">
-            <i class="fas fa-info-circle"></i>
-        </div>
-        <div class="feature-title">System Info</div>
-        <div class="feature-description">View details about your WordPress installation and server environment.</div>
-        <button class="feature-button">View Info</button>
+      <button id="add-new-backup-btn" class="feature-button">Create Backup</button>
     </div>
 </div>
+
+<?php include WPBM_PLUGIN_DIR . 'views/backup/create-backup.php'; ?>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const featureButton = document.querySelector('#add-new-backup-btn');
+    const createBackupContainer = document.querySelector('.create-backup-container');
+    const closeButton = document.querySelector('#create-backup-btn-close');
+
+    featureButton.addEventListener('click', () => {
+      createBackupContainer.classList.remove('hidden');
+    });
+
+    closeButton.addEventListener('click', () => {
+      createBackupContainer.classList.add('hidden');
+    });
+  });
+</script>
