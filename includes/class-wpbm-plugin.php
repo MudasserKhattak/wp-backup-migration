@@ -23,7 +23,8 @@ class WPBM_Plugin {
         $this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_menu');
         $this->loader->add_action('admin_init', $plugin_admin, 'handle_form_submission');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-        add_filter('script_loader_tag', [$this, 'addTypeModuleAttribute'], 10, 2);
+        $this->loader->add_action('wp_enqueue_script', $plugin_admin, 'enqueue_scripts');
+        //add_filter('script_loader_tag', [$this, 'addTypeModuleAttribute'], 10, 2);
     }
 
     public function run() {

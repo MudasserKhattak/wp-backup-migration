@@ -1,11 +1,6 @@
-import BackupManager from './partials/backup-manager';
+import BackupManager from './partials/backup-manager.js';
 
 console.log('admin-script.js loaded');
 document.addEventListener('DOMContentLoaded', () => {
-  const createBackup = document.querySelector('#add-new-backup-btn');
-  console.log(createBackup);
-  createBackup.addEventListener('click', () => {
-    console.log('clicked');
-    new BackupManager();
-  });
+  new BackupManager();
 });

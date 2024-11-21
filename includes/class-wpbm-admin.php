@@ -6,6 +6,7 @@ class WPBM_Admin {
 
     public function __construct() {
         $this->load_dependencies();
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
     }
 
     private function load_dependencies() {
@@ -61,11 +62,22 @@ class WPBM_Admin {
     }
 
     public function enqueue_scripts() {
-        /*wp_localize_script('wpbm-admin-script', 'wpbm', array(
+        wp_enqueue_script('wpbm-admin-script', WPBM_ASSETS_URL . 'js/admin-script.js', array(), null, true);
+        wp_localize_script('wpbm-admin-script', 'wpbm', array(
             'nonce'  => wp_create_nonce('wpbm-nonce'),
             'ajaxUrl'=> admin_url('admin-ajax.php'),
-        ));*/
-        wp_enqueue_style('wpbm-admin-style', WPBM_ASSETS_URL . 'css/admin-style.css', rand(111,9999), 'all');
-        wp_enqueue_script('wpbm-admin-script', WPBM_ASSETS_URL . 'js/admin-script.js', array(), rand(111,9999), true);
+        ));
+        wp_enqueue_style('wpbm-admin-style', WPBM_ASSETS_URL . 'css/admin-style.css');
+        add_filter('script_loader_tag', [$this, 'addTypeModuleAttribute'], 10, 2);
+    }
+
+    public function addTypeModuleAttribute($tag, $handle) {
+        if ($handle !== 'wpbm-admin-script') {
+            return $tag;
+        }
+
+        $new_tag = str_replace("type='text/javascript'", '', $tag);
+        $new_tag = str_replace(" src", " type='module' src", $new_tag);
+        return $new_tag;
     }
 }
