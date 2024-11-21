@@ -1,5 +1,7 @@
 <?php
 
+namespace WPBM;
+
 class WPBM_Plugin {
 
     protected $loader;
@@ -12,7 +14,6 @@ class WPBM_Plugin {
     private function load_dependencies() {
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-wpbm-loader.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-wpbm-admin.php';
-
         $this->loader = new WPBM_Loader();
     }
 
@@ -21,6 +22,7 @@ class WPBM_Plugin {
 
         $this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_menu');
         $this->loader->add_action('admin_init', $plugin_admin, 'handle_form_submission');
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
     }
 
     public function run() {

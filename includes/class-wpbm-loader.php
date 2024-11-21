@@ -1,5 +1,7 @@
 <?php
 
+namespace WPBM;
+
 class WPBM_Loader {
 
     protected $actions;

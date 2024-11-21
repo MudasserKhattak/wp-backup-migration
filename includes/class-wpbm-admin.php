@@ -1,28 +1,43 @@
 <?php
 
+namespace WPBM;
+
 class WPBM_Admin {
 
+    public function __construct() {
+        $this->load_dependencies();
+    }
+
+    private function load_dependencies() {
+        require_once WPBM_PLUGIN_DIR . 'includes/class-wpbm-system-info.php';
+    }
+
     public function add_admin_menu() {
-        add_menu_page('WP Backup and Migration', 'Backup & Migration', 'manage_options', 'wp-backup-migration', array($this, 'admin_page'));
+        add_menu_page(
+            'WP Backup and Migration',
+            'Backup & Migration',
+            'manage_options',
+            'wp-backup-migration',
+            array($this, 'admin_page')
+        );
+
+        add_submenu_page(
+            'wp-backup-migration',
+            'System Info',
+            'System Info',
+            'manage_options',
+            'wpbm-system-info',
+            array($this, 'system_info_page')
+        );
     }
 
     public function admin_page() {
-        ?>
-        <div class="wrap">
-            <h1>WP Backup and Migration</h1>
-            <form method="post">
-                <h2>Backup</h2>
-                <input type="submit" name="wpbm_backup" value="Backup Now" class="button button-primary">
-                <h2>Migration</h2>
-                <input type="text" name="new_host" placeholder="New Host">
-                <input type="text" name="new_user" placeholder="New User">
-                <input type="password" name="new_password" placeholder="New Password">
-                <input type="text" name="new_db" placeholder="New Database">
-                <input type="text" name="new_server_path" placeholder="New Server Path">
-                <input type="submit" name="wpbm_migrate" value="Migrate Now" class="button button-primary">
-            </form>
-        </div>
-        <?php
+        include WPBM_PLUGIN_DIR . 'views/admin-page.php';
+    }
+
+    public function system_info_page() {
+        $system_info = new WPBM_System_Info();
+        $system_info->display_system_information();
     }
 
     public function handle_form_submission() {
@@ -63,5 +78,10 @@ class WPBM_Admin {
     private function migrate_files($new_server_path) {
         $command = sprintf('scp -r %s %s', WPBM_FILES_BACKUP_DIR, $new_server_path);
         system($command);
+    }
+
+    public function enqueue_scripts() {
+        wp_enqueue_style('wpbm-admin-style', WPBM_ASSETS_URL . 'css/admin-style.css');
+        wp_enqueue_script('wpbm-admin-script', WPBM_ASSETS_URL . 'js/admin-script.js', array('jquery'), null, true);
     }
 }

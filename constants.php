@@ -5,11 +5,15 @@ if (!defined('ABSPATH')) {
 }
 
 if (!defined('WPBM_PLUGIN_DIR')) {
-    define('WPBM_PLUGIN_DIR', plugin_dir_path(__FILE__));
+    define('WPBM_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins/wp-backup-migration/');
 }
 
 if (!defined('WPBM_PLUGIN_URL')) {
     define('WPBM_PLUGIN_URL', plugin_dir_url(__FILE__));
+}
+
+if (!defined('WPBM_ASSETS_URL')) {
+    define('WPBM_ASSETS_URL', WPBM_PLUGIN_URL . 'assets/');
 }
 
 if (!defined('WPBM_BACKUP_DIR')) {
