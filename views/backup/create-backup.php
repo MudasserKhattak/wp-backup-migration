@@ -49,7 +49,7 @@
                 <button class="feature-button-primary text-white font-bold py-2 px-4 rounded mr-2">
                     Create Backup
                 </button>
-                <button id="create-backup-btn-close" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">
+                <button id="create-backup-btn-close" class="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">
                     Cancel
                 </button>
             </div>
