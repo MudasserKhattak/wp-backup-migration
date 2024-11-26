@@ -1,5 +1,7 @@
 # wp-backup-migration
 WordPress Backup and Migration
+composer dump-autoload
+
 
 ## Description
 This project provides tools and scripts to backup and migrate WordPress sites. It ensures that all your WordPress data, including posts, pages, media, plugins, and themes, are safely backed up and can be restored or migrated to a new server or environment.

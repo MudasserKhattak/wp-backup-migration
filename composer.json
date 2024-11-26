@@ -1,0 +1,19 @@
+{
+    "name": "wpbm/wp-backup-migration",
+    "description": "A WordPress plugin for backup and migration.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Mudasser khattak",
+            "email": "mudasserkhattak@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WPBM\\": "./"
+        }
+    },
+    "require": {}
+}
+

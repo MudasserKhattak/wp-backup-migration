@@ -1,8 +1,14 @@
 <?php
 namespace WPBM;
 
+/**
+ * System Information
+ */
 class WPBM_System_Info {
 
+    /**
+     * Display System Information
+     */
     public function display_system_information() {
         $system_info    = $this->get_system_info();
         $wp_info        = $this->get_wp_info();
@@ -12,6 +18,10 @@ class WPBM_System_Info {
         include WPBM_PLUGIN_DIR . 'views/system-information.php';
     }
 
+    /**
+     * Get System Information
+     * @return array
+     */
     private function get_system_info() {
         return [
             'Operating System' => php_uname('s'),
@@ -26,6 +36,10 @@ class WPBM_System_Info {
         ];
     }
 
+    /**
+     * Get WordPress Information
+     * @return array
+     */
     private function get_wp_info()
     {
         return [
@@ -44,6 +58,10 @@ class WPBM_System_Info {
         ];
     }
 
+    /**
+     * Get Outbound IP
+     * @return string
+     */
     private function get_outbound_ip() {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "http://ipecho.net/plain");
@@ -53,20 +71,10 @@ class WPBM_System_Info {
         return $outbound_ip;
     }
 
-    private function get_image_sizes() {
-        global $_wp_additional_image_sizes;
-        $image_sizes = [];
-        foreach (get_intermediate_image_sizes() as $size) {
-            $image_sizes[$size] = [
-                'width' => get_option("{$size}_size_w"),
-                'height' => get_option("{$size}_size_h"),
-                'crop' => (bool)get_option("{$size}_crop")
-            ];
-        }
-        return $image_sizes;
-    }
-
-    // write a function that will return array of active plugins with name and version
+    /**
+     * Get Active Plugins
+     * @return array
+     */
     private function get_active_plugins() {
         $active_plugins = get_option('active_plugins');
         $plugins = [];
@@ -77,6 +85,10 @@ class WPBM_System_Info {
         return $plugins;
     }
 
+    /**
+     * Get PHP Information
+     * @return array
+     */
     private function get_php_info()
     {
         return [
@@ -97,6 +109,10 @@ class WPBM_System_Info {
         ];
     }
 
+    /**
+     * Get Server Disk Information
+     * @return array
+     */
     private function get_server_disk()
     {
         $total_space = disk_total_space('/');
