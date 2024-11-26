@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="flex justify-end">
-                <button class="feature-button-primary text-white font-bold py-2 px-4 rounded mr-2">
+                <button class="backup-button feature-button-primary text-white font-bold py-2 px-4 rounded mr-2">
                     Create Backup
                 </button>
                 <button id="create-backup-btn-close" class="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">
