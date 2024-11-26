@@ -1,5 +1,7 @@
 export default class BackupManager {
   constructor() {
+    this.backupUniquePrefix = '';
+    this.backupInProgress = false;
     this.featureButton = document.querySelector('#add-new-backup-btn');
     this.createBackupContainer = document.querySelector('.create-backup-container');
     this.closeButton = document.querySelector('#create-backup-btn-close');
@@ -97,5 +99,74 @@ export default class BackupManager {
     for (const [key, value] of Object.entries(settings)) {
       this.checkboxes[key].checked = value;
     }
+  }
+
+  createBackup() {
+    if (this.backupInProgress) {
+      alert('Backup already in progress');
+      return;
+    }
+
+    // Initiate backup
+    $.ajax({
+      url: '',
+      method: 'POST',
+      data: {action: 'initiate_backup'},
+      dataType: 'json',
+      success: function (response) {
+        if (response.status === 'success') {
+          this.backupUniquePrefix = response.data.unique_prefix;
+          this.backupInProgress = true;
+          $('#backupProgress').html(`Backup started. Total Tables: ${response.data.total_tables}`);
+
+          // Start backing up chunks
+          this.backupNextChunk();
+        } else {
+          $('#result').html('Backup initiation failed: ' + response.message);
+        }
+      },
+      error: function () {
+        $('#result').html('An error occurred during backup initiation.');
+      }
+    });
+  }
+
+  backupNextChunk() {
+    $.ajax({
+      url: '',
+      method: 'POST',
+      data: {
+        action: 'backup_next_chunk',
+        unique_prefix: this.backupUniquePrefix
+      },
+      dataType: 'json',
+      success: function(response) {
+        if (response.status === 'success') {
+          let data = response.data;
+
+          if (data.status === 'completed') {
+            $('#backupProgress').html('Backup completed successfully!');
+            $('#restorePrefix').val(backupUniquePrefix);
+            this.backupInProgress = false;
+          } else {
+            // Update progress
+            $('#backupProgress').html(
+                `Backing up table: ${data.table}<br>` +
+                `Rows processed: ${data.rows_processed}`
+            );
+
+            // Continue backing up next chunk
+            this.backupNextChunk();
+          }
+        } else {
+          $('#result').html('Backup chunk failed: ' + response.message);
+          this.backupInProgress = false;
+        }
+      },
+      error: function() {
+        $('#result').html('An error occurred during backup.');
+        this.backupInProgress = false;
+      }
+    });
   }
 }
